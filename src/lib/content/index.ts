@@ -81,6 +81,7 @@ export const siteContent = {
     ]
   },
 
+ 
   services: {
     section: {
       title: "Our Services",
@@ -89,8 +90,8 @@ export const siteContent = {
     },
     items: [
       {
-        title: "Software Development",
-        description: "Crafting sophisticated digital solutions that transform business operations",
+        title: " Software Development",
+        description: "Crafting sophisticated digital solutions that transform business operations into seamless experiences",
         icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4",
         category: "Development",
         number: "01"
@@ -109,27 +110,7 @@ export const siteContent = {
         category: "Marketing",
         number: "03"
       },
-      {
-        title: "SEO Services",
-        description: "Optimizing digital visibility through data-driven strategies",
-        icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
-        category: "Marketing",
-        number: "04"
-      },
-      {
-        title: "Social Media Management",
-        description: "Curating compelling social narratives that resonate",
-        icon: "M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z",
-        category: "Marketing",
-        number: "05"
-      },
-      {
-        title: "AI Solutions",
-        description: "Implementing intelligent systems for business efficiency",
-        icon: "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z",
-        category: "Technology",
-        number: "06"
-      },
+    
       {
         title: "SEO Services",
         description: "Optimizing digital visibility through precise, data-driven strategies.",
@@ -262,6 +243,7 @@ export const siteContent = {
       }
     ]
   },
+
 
   footer: {
     company: {

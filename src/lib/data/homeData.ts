@@ -108,6 +108,7 @@ export const servicesData = {
 };
 
 // Industries section data
+// Industries section data
 export const industriesData = {
   title: "Industries We Serve",
   subtitle: "Our Expertise",

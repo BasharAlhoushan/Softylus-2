@@ -20,7 +20,7 @@ const {
   description = "Transform your digital vision into reality with Softylus. We specialize in custom software development, mobile apps, digital marketing, and SEO services. Your trusted technology partner in Jordan and beyond.", 
   image = "/softylus-opengraph.jpg",
   type = "website",
-  keywords = "software development, digital solutions, mobile apps, web development, digital marketing, SEO services, Jordan tech company, custom software, enterprise solutions, digital transformation"
+  keywords = "software development, digital solutions, mobile apps, web development, digital marketing, SEO services, Jordan tech company, custom software, enterprise solutions, digital transformation,Softylus"
 } = Astro.props;
 
 // Meta descriptions for different pages
@@ -73,6 +73,117 @@ const siteUrl = 'https://spiffy-cajeta-cc7dc8.netlify.app';
 // Construct absolute URLs - handle both absolute and relative paths
 const canonicalURL = new URL(Astro.url.pathname, siteUrl).href;
 const ogImage = image.startsWith('http') ? image : new URL(image, siteUrl).href;
+
+// Define structured data before the component template
+const structuredData = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      "name": "Softylus",
+      "url": siteUrl,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${siteUrl}/images/logo.png`,
+        "width": "180",
+        "height": "180"
+      },
+      "sameAs": [
+        "https://twitter.com/softylus",
+        "https://www.linkedin.com/company/softylus",
+        "https://github.com/softylus"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+962782944706",
+        "contactType": "customer service",
+        "email": "beyond@softylus.com",
+        "areaServed": ["JO", "GB", "SA"],
+        "availableLanguage": ["English", "Arabic"]
+      }
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": `${siteUrl}/#localbusiness`,
+      "name": "Softylus",
+      "image": `${siteUrl}/images/office.jpg`,
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "King Abdullah II St",
+        "addressLocality": "Zarqa",
+        "addressRegion": "Zarqa",
+        "postalCode": "13110",
+        "addressCountry": "JO"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "32.0636",
+        "longitude": "36.0878"
+      },
+      "url": siteUrl,
+      "telephone": "+962782944706",
+      "email": "beyond@softylus.com",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Sunday"
+          ],
+          "opens": "09:00",
+          "closes": "18:00"
+        }
+      ],
+      "areaServed": [
+        {
+          "@type": "GeoCircle",
+          "geoMidpoint": {
+            "@type": "GeoCoordinates",
+            "latitude": "32.0636",
+            "longitude": "36.0878"
+          },
+          "geoRadius": "50000"
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Digital Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Software Development",
+              "description": "Custom software solutions that transform business operations"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Mobile Development",
+              "description": "Native and cross-platform mobile applications"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Digital Marketing",
+              "description": "Strategic digital marketing and SEO services"
+            }
+          }
+        ]
+      }
+    }
+  ]
+});
+
 ---
 
 <!doctype html>
@@ -141,29 +252,10 @@ const ogImage = image.startsWith('http') ? image : new URL(image, siteUrl).href;
     <meta name="google-site-verification" content="your-google-verification-code" />
     <meta name="facebook-domain-verification" content="your-facebook-verification-code" />
     
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Softylus",
-        "url": "{siteUrl}",
-        "logo": `${siteUrl}/images/logo.png`,
-        "sameAs": [
-          "https://twitter.com/softylus",
-          "https://www.linkedin.com/company/softylus",
-          "https://github.com/softylus"
-        ],
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "telephone": "+962-782-994-706",
-          "contactType": "customer service",
-          "email": "beyond@softylus.com",
-          "areaServed": ["JO", "GB", "SA"],
-          "availableLanguage": ["English", "Arabic"]
-        }
-      }
-    </script>
+   
+         <!-- Structured Data -->
+    <script type="application/ld+json" set:html={structuredData} />
+   
   </head>
   <body class="font-sans antialiased text-gray-900 bg-white overflow-x-hidden">
     <div class="noise-overlay"></div>
