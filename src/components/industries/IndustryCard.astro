@@ -1,0 +1,86 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+  delay?: number;
+}
+
+const { title, description, icon, delay = 0 } = Astro.props;
+---
+
+<div 
+  class="industry-card"
+  data-aos="fade-up"
+  data-aos-delay={delay}
+>
+  <div class="industry-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={icon} />
+    </svg>
+  </div>
+  
+  <h3 class="text-xl font-display font-bold mb-3">{title}</h3>
+  <p class="text-gray-600">{description}</p>
+  
+  <div class="industry-progress"></div>
+</div>
+
+<style>
+  .industry-card {
+    position: relative;
+    padding: 2rem;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .industry-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .industry-icon {
+    width: 3rem;
+    height: 3rem;
+    background: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .industry-card:hover .industry-icon {
+    transform: rotate(10deg);
+  }
+
+  .industry-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: black;
+    transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .industry-card:hover .industry-progress {
+    width: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .industry-card:hover {
+      transform: none;
+    }
+
+    .industry-card:hover .industry-icon {
+      transform: none;
+    }
+
+    .industry-progress {
+      transition: none;
+    }
+  }
+</style> 
