@@ -223,8 +223,8 @@ export const processData = {
   stats: [
     { value: 98, label: "Client Satisfaction", symbol: "%" },
     { value: 127, label: "Projects Completed", symbol: "+" },
-    { value: 14, label: "Industry Awards", symbol: "" },
-    { value: 8, label: "Years of Excellence", symbol: "" }
+    // { value: 14, label: "Industry Awards", symbol: "" },
+    { value: 8, label: "", symbol: "" }
   ],
   quote: "Design is not just what it looks like and feels like. Design is how it works."
 };
