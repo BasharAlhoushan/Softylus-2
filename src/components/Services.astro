@@ -194,7 +194,7 @@
     
     const cards = carousel.querySelectorAll('.service-card-mobile');
     const indicators = document.querySelectorAll('.carousel-indicator');
-    const cardWidth = cards[0].offsetWidth + 16; // Card width + margin
+    const cardWidth = (cards[0] as HTMLElement).offsetWidth + 16; // Card width + margin
     
     // Initialize active card
     updateActiveCard(0);
@@ -240,10 +240,12 @@
       // Update card progress bars
       cards.forEach((card, i) => {
         const progress = card.querySelector('.service-card-progress');
-        if (i === activeIndex) {
-          progress.style.width = '100%';
-        } else {
-          progress.style.width = '0';
+        if (progress) {
+          if (i === activeIndex) {
+            (progress as HTMLElement).style.width = '100%';
+          } else {
+            (progress as HTMLElement).style.width = '0';
+          }
         }
       });
     }
