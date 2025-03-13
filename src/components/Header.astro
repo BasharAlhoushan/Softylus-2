@@ -1,4 +1,3 @@
-
 <header class="fixed w-full z-50 transition-all duration-300" id="main-header">
   <div class="container mx-auto px-4 py-4">
     <div class="flex justify-between items-center">
@@ -178,7 +177,7 @@
         const luxuryShine = logoContainer.querySelector('.logo-luxury-shine');
         if (luxuryShine) {
           luxuryShine.classList.remove('animate-shimmer');
-          void luxuryShine.offsetWidth; // Force reflow
+          void (luxuryShine as HTMLElement).offsetWidth; // Force reflow
           luxuryShine.classList.add('animate-shimmer');
         }
       }
@@ -203,7 +202,7 @@
         mobileMenu.classList.toggle('hidden');
         
         // Update accessibility attributes
-        menuToggle.setAttribute('aria-expanded', !expanded);
+        menuToggle.setAttribute('aria-expanded', (!expanded).toString());
         
         // Animate to X icon when open
         if (!expanded) {
@@ -220,7 +219,7 @@
         if (!mobileMenu.classList.contains('hidden')) {
           const menuItems = mobileMenu.querySelectorAll('.mobile-nav-link');
           menuItems.forEach((item, index) => {
-            item.style.animationDelay = `${index * 0.05}s`;
+            (item as HTMLElement).style.animationDelay = `${index * 0.05}s`;
             item.classList.add('menu-item-enter');
           });
         }
@@ -276,18 +275,19 @@
       
       navLinks.forEach(link => {
         link.addEventListener('mousemove', (e) => {
+          const mouseEvent = e as MouseEvent;
           const bounds = link.getBoundingClientRect();
           const centerX = bounds.left + bounds.width / 2;
           const centerY = bounds.top + bounds.height / 2;
           
-          const distanceX = (e.clientX - centerX) * magnetStrength;
-          const distanceY = (e.clientY - centerY) * magnetStrength;
+          const distanceX = (mouseEvent.clientX - centerX) * magnetStrength;
+          const distanceY = (mouseEvent.clientY - centerY) * magnetStrength;
           
-          link.style.transform = `translate(${distanceX}px, ${distanceY}px)`;
+          (link as HTMLElement).style.transform = `translate(${distanceX}px, ${distanceY}px)`;
         });
         
         link.addEventListener('mouseleave', () => {
-          link.style.transform = 'translate(0px, 0px)';
+          (link as HTMLElement).style.transform = 'translate(0px, 0px)';
         });
       });
     }
@@ -299,29 +299,30 @@
     if (logoContainer) {
       // Track mouse position for 3D perspective effect
       logoContainer.addEventListener('mousemove', (e) => {
+        const mouseEvent = e as MouseEvent;
         if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
           const bounds = logoContainer.getBoundingClientRect();
           const centerX = bounds.left + bounds.width / 2;
           const centerY = bounds.top + bounds.height / 2;
           
           // Calculate mouse position relative to center (in percentage -50 to 50)
-          const percentX = ((e.clientX - centerX) / (bounds.width / 2)) * 10;
-          const percentY = ((e.clientY - centerY) / (bounds.height / 2)) * 5;
+          const percentX = ((mouseEvent.clientX - centerX) / (bounds.width / 2)) * 10;
+          const percentY = ((mouseEvent.clientY - centerY) / (bounds.height / 2)) * 5;
           
           // Apply subtle 3D rotation based on mouse position
-          logoContainer.style.transform = `perspective(1000px) rotateY(${percentX}deg) rotateX(${-percentY}deg) translateZ(10px)`;
+          (logoContainer as HTMLElement).style.transform = `perspective(1000px) rotateY(${percentX}deg) rotateX(${-percentY}deg) translateZ(10px)`;
         }
       });
       
       logoContainer.addEventListener('mouseleave', () => {
         // Reset transform when mouse leaves
-        logoContainer.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateZ(0)';
+        (logoContainer as HTMLElement).style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateZ(0)';
       });
       
       logoContainer.addEventListener('mouseenter', () => {
         // Animate symbol elements on hover
         logoSymbolElements.forEach((element, index) => {
-          element.style.animationDelay = `${index * 0.1}s`;
+          (element as HTMLElement).style.animationDelay = `${index * 0.1}s`;
           element.classList.add('hover-animate');
         });
       });
