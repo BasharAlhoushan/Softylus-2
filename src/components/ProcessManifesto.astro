@@ -180,7 +180,7 @@ import MobileProcessCards from './MobileProcessCards.astro';
     
     <!-- Animated Stats -->
     <div class="mt-20 md:mt-28" data-aos="fade-up" data-aos-delay="400">
-      <div class="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         <div class="stat-card">
           <div class="stat-number" data-count="98">0</div>
           <div class="stat-label">Client Satisfaction</div>
@@ -193,8 +193,20 @@ import MobileProcessCards from './MobileProcessCards.astro';
           <div class="stat-symbol">+</div>
         </div>
         
-       
-      
+        <div class="stat-card">
+          <div class="stat-number" data-count="14">0</div>
+          <div class="stat-label">Industry Awards</div>
+          <div class="stat-symbol"></div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-number" data-count="8">0</div>
+          <div class="stat-label">Years of Excellence</div>
+          <div class="stat-symbol"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <script>
@@ -212,7 +224,7 @@ import MobileProcessCards from './MobileProcessCards.astro';
       
       // For touch devices, change text to tap instead of hover
       if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-        if (centerDescription && centerDescription.textContent.includes('Hover')) {
+        if (centerDescription && centerDescription.textContent && centerDescription.textContent.includes('Hover')) {
           centerDescription.textContent = centerDescription.textContent.replace('Hover', 'Tap');
         }
       }
@@ -281,14 +293,14 @@ import MobileProcessCards from './MobileProcessCards.astro';
       card.addEventListener('mouseenter', () => {
         const progress = card.querySelector('.card-progress');
         if (progress) {
-          progress.style.width = '100%';
+          (progress as HTMLElement).style.width = '100%';
         }
       });
       
       card.addEventListener('mouseleave', () => {
         const progress = card.querySelector('.card-progress');
         if (progress) {
-          progress.style.width = '0';
+          (progress as HTMLElement).style.width = '0';
         }
       });
     });
@@ -298,7 +310,10 @@ import MobileProcessCards from './MobileProcessCards.astro';
     
     function animateStats() {
       stats.forEach(stat => {
-        const target = parseInt(stat.getAttribute('data-count'), 10);
+        const dataCount = stat.getAttribute('data-count');
+        if (!dataCount) return;
+        
+        const target = parseInt(dataCount, 10);
         const duration = 2000; // 2 seconds
         const step = target / (duration / 16); // 16ms per frame (approx 60fps)
         let current = 0;
@@ -307,11 +322,11 @@ import MobileProcessCards from './MobileProcessCards.astro';
           current += step;
           if (current > target) {
             current = target;
-            stat.textContent = Math.round(current);
+            stat.textContent = Math.round(current).toString();
             return;
           }
           
-          stat.textContent = Math.round(current);
+          stat.textContent = Math.round(current).toString();
           requestAnimationFrame(updateStat);
         };
         

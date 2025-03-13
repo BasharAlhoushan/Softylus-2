@@ -78,7 +78,7 @@
     
     // Add staggered entrance animation to logo text elements with increased delays
     logoTexts.forEach((text, index) => {
-      text.style.transitionDelay = `${index * 120 + 300}ms`; // Staggered delay
+      (text as HTMLElement).style.transitionDelay = `${index * 120 + 300}ms`; // Staggered delay
       
       // Small delay before starting the animation
       setTimeout(() => {
@@ -105,7 +105,7 @@
         if (rotation >= 45) { // Rotate just 45 degrees total
           clearInterval(rotateInterval);
         } else {
-          brandMark.style.transform = `rotate(${rotation}deg)`;
+          (brandMark as HTMLElement).style.transform = `rotate(${rotation}deg)`;
         }
       }, 100);
     }
@@ -148,8 +148,8 @@
         progress = Math.min(100, progress + easedIncrement);
         
         // Update visual elements
-        progressFill.style.transform = `scaleX(${progress / 100})`;
-        progressText.textContent = Math.round(progress);
+        (progressFill as HTMLElement).style.transform = `scaleX(${progress / 100})`;
+        progressText.textContent = Math.round(progress).toString();
         
         // Add deliberate pauses at key milestones
         if (Math.round(progress) === 25 || Math.round(progress) === 50 || Math.round(progress) === 75) {
@@ -182,8 +182,8 @@
               progress = Math.min(100, progress + resumedIncrement);
               
               // Update visual elements
-              progressFill.style.transform = `scaleX(${progress / 100})`;
-              progressText.textContent = Math.round(progress);
+              (progressFill as HTMLElement).style.transform = `scaleX(${progress / 100})`;
+              progressText.textContent = Math.round(progress).toString();
               
               // Complete loading sequence
               if (progress >= 100) {
@@ -240,7 +240,7 @@
             
             // Remove from DOM after animation completes
             setTimeout(() => {
-              loader.style.display = 'none';
+              if (loader) loader.style.display = 'none';
             }, 1500); // Even longer fade-out duration
           }
         }, 1000); // Longer delay before fade-out starts
@@ -250,7 +250,7 @@
     // Ensure loader always completes
     function completeLoading() {
       if (progressFill && progressText) {
-        progressFill.style.transform = 'scaleX(1)';
+        (progressFill as HTMLElement).style.transform = 'scaleX(1)';
         progressText.textContent = '100';
       }
       
@@ -263,7 +263,7 @@
       if (progress < 90) {
         progress = 90; // Go to 90% for a more deliberate finish
         if (progressFill) {
-          progressFill.style.transform = 'scaleX(0.9)';
+          (progressFill as HTMLElement).style.transform = 'scaleX(0.9)';
         }
         if (progressText) {
           progressText.textContent = '90';
@@ -282,9 +282,11 @@
     });
     
     // Click anywhere to skip loader
-    loader.addEventListener('click', () => {
-      completeLoading();
-    });
+    if (loader) {
+      loader.addEventListener('click', () => {
+        completeLoading();
+      });
+    }
   });
 </script>
 

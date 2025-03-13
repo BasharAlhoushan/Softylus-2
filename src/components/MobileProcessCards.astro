@@ -283,31 +283,34 @@
       button.addEventListener('click', function() {
         // Get the ID of the content to toggle
         const contentId = this.getAttribute('aria-controls');
-        const content = document.getElementById(contentId);
+        const content = contentId ? document.getElementById(contentId) : null;
         const iconContainer = this.querySelector('.icon-container');
-        const progressBar = content.querySelector('.progress-bar');
         const toggleIcon = this.querySelector('.toggle-icon');
+        const progressBar = content ? content.querySelector('.progress-bar') : null;
+        
+        // If content element doesn't exist, exit early
+        if (!content) return;
         
         // Get the current state
         const isExpanded = this.getAttribute('aria-expanded') === 'true';
         
         // Update ARIA attributes
-        this.setAttribute('aria-expanded', !isExpanded);
+        this.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false');
         
         if (!isExpanded) {
           // Expand the content
-          content.style.maxHeight = content.scrollHeight + 'px';
-          toggleIcon.classList.add('rotate-180');
-          iconContainer.classList.add('scale-110');
+          (content as HTMLElement).style.maxHeight = `${content.scrollHeight}px`;
+          toggleIcon?.classList.add('rotate-180');
+          iconContainer?.classList.add('scale-110');
           setTimeout(() => {
-            if (progressBar) progressBar.style.width = '100%';
+            if (progressBar) (progressBar as HTMLElement).style.width = '100%';
           }, 400);
         } else {
           // Collapse the content
-          content.style.maxHeight = '0px';
-          toggleIcon.classList.remove('rotate-180');
-          iconContainer.classList.remove('scale-110');
-          if (progressBar) progressBar.style.width = '0';
+          (content as HTMLElement).style.maxHeight = '0px';
+          toggleIcon?.classList.remove('rotate-180');
+          iconContainer?.classList.remove('scale-110');
+          if (progressBar) (progressBar as HTMLElement).style.width = '0';
         }
       });
     });
@@ -315,14 +318,14 @@
     // Optional: Add ripple effect for better touch feedback
     const buttons = document.querySelectorAll('.card-toggle');
     buttons.forEach(button => {
-      button.addEventListener('click', function(e) {
-        const x = e.clientX - e.target.getBoundingClientRect().left;
-        const y = e.clientY - e.target.getBoundingClientRect().top;
-        
+      button.addEventListener('click', function() {
+        // Create ripple at center of button instead of at click position
+        // This avoids TypeScript errors with event handling
         const ripple = document.createElement('span');
         ripple.classList.add('ripple-effect');
-        ripple.style.left = `${x}px`;
-        ripple.style.top = `${y}px`;
+        ripple.style.left = '50%';
+        ripple.style.top = '50%';
+        ripple.style.transform = 'translate(-50%, -50%)';
         
         this.appendChild(ripple);
         
